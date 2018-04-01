@@ -53,11 +53,14 @@ public class Parser {
     }
 
     protected  ResultSet getResultSet(String query, Map<Integer, ?> paramIndexValue) {
+        long startExecution = System.currentTimeMillis();
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             setStatementVariables(statement, paramIndexValue);
             logger.info("SQL: {}", statement);
-            return statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
+            logger.debug("Statement executed in {} milliseconds", System.currentTimeMillis() - startExecution);
+            return resultSet;
         } catch (SQLException e) {
             logger.error("SQL Failed: {}", query);
             throw new RuntimeException(e);
@@ -65,11 +68,14 @@ public class Parser {
     }
 
     protected int executeUpdate(String query, Map<Integer, ?> paramIndexValue) {
+        long startExecution = System.currentTimeMillis();
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(query);
             setStatementVariables(statement, paramIndexValue);
             logger.info("SQL: {}", statement);
-            return statement.executeUpdate();
+            int affectedRows = statement.executeUpdate();
+            logger.debug("Statement executed in {} milliseconds", System.currentTimeMillis() - startExecution);
+            return affectedRows;
         } catch (SQLException e) {
             logger.error("SQL Failed: {}", query);
             throw new RuntimeException(e);
