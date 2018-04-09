@@ -1,8 +1,8 @@
-package com.belosh.jdbc.rowmapper;
+package com.belosh.jdbc_template.rowmapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public interface IRowMapper<T> {
+public interface RowMapper<T> {
     T mapRow(ResultSet resultSet) throws SQLException;
 }

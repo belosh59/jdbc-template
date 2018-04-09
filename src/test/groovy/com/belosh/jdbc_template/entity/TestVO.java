@@ -1,8 +1,8 @@
-package com.belosh.jdbc.entity;
+package com.belosh.jdbc_template.entity;
 
 import java.sql.Date;
 
-public class JdbcTemplate {
+public class TestVO {
     private boolean fieldBoolean;
     private int fieldInt;
     private double fieldDouble;

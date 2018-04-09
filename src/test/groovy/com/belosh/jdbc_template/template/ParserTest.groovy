@@ -1,4 +1,4 @@
-package com.belosh.jdbc.template
+package com.belosh.jdbc_template.template
 
 class ParserTest extends GroovyTestCase {
     def BIND_VARIABLE_QUERY = "SELECT * FROM jdbc_template WHERE ftext = :ftext and fint = :fint"
@@ -9,13 +9,13 @@ class ParserTest extends GroovyTestCase {
         namedParameterMap.put("ftext", "text")
         namedParameterMap.put("fint", 100)
 
-        Map<Integer, ?> generatedIndexParam = parser.getIndexValueMap(BIND_VARIABLE_QUERY, namedParameterMap)
+        Map<Integer, ?> generatedIndexParam = parser.getOrderedParamList(BIND_VARIABLE_QUERY, namedParameterMap)
         assertEquals("text", generatedIndexParam.get(1))
         assertEquals(100, generatedIndexParam.get(2))
     }
 
     void testGetIndexValueMap1() {
-        Map<Integer, ?> generatedIndexParam = parser.getIndexValueMap( "text", 100)
+        Map<Integer, ?> generatedIndexParam = parser.getOrderedParamList( "text", 100)
         assertEquals("text", generatedIndexParam.get(1))
         assertEquals(100, generatedIndexParam.get(2))
     }
