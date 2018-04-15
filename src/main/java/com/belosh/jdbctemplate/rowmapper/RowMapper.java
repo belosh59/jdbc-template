@@ -1,4 +1,4 @@
-package com.belosh.jdbc_template.rowmapper;
+package com.belosh.jdbctemplate.rowmapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

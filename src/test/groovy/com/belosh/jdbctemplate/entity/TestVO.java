@@ -1,6 +1,6 @@
-package com.belosh.jdbc_template.entity;
+package com.belosh.jdbctemplate.entity;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 public class TestVO {
     private boolean fieldBoolean;
@@ -8,7 +8,7 @@ public class TestVO {
     private double fieldDouble;
     private float fieldFloat;
     private String fieldText;
-    private Date fieldDate;
+    private LocalDateTime fieldDate;
 
     public boolean isFieldBoolean() {
         return fieldBoolean;
@@ -50,11 +50,23 @@ public class TestVO {
         this.fieldText = fieldText;
     }
 
-    public Date getFieldDate() {
+    public LocalDateTime getFieldDate() {
         return fieldDate;
     }
 
-    public void setFieldDate(Date fieldDate) {
+    public void setFieldDate(LocalDateTime fieldDate) {
         this.fieldDate = fieldDate;
+    }
+
+    @Override
+    public String toString() {
+        return "TestVO{" +
+                "fieldBoolean=" + fieldBoolean +
+                ", fieldInt=" + fieldInt +
+                ", fieldDouble=" + fieldDouble +
+                ", fieldFloat=" + fieldFloat +
+                ", fieldText='" + fieldText + '\'' +
+                ", fieldDate=" + fieldDate +
+                '}';
     }
 }

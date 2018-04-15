@@ -1,6 +1,6 @@
-package com.belosh.jdbc_template.rowmapper;
+package com.belosh.jdbctemplate.rowmapper;
 
-import com.belosh.jdbc_template.entity.TestVO;
+import com.belosh.jdbctemplate.entity.TestVO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ public class TestVOMapper implements RowMapper<TestVO> {
         testVO.setFieldFloat(resultSet.getFloat("ffloat"));
         testVO.setFieldInt(resultSet.getInt("fint"));
         testVO.setFieldText(resultSet.getString("ftext"));
-        testVO.setFieldDate(resultSet.getDate("fdate"));
+        testVO.setFieldDate(resultSet.getTimestamp("fdate").toLocalDateTime());
         return testVO;
     }
 }
