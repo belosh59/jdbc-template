@@ -1,7 +1,9 @@
 package com.belosh.jdbctemplate.template
 
 import com.belosh.jdbctemplate.entity.TestVO
+import com.belosh.jdbctemplate.exception.EmptyResultDataAccessException
 import com.belosh.jdbctemplate.exception.EntityBuilderException
+import com.belosh.jdbctemplate.exception.IncorrectResultSizeDataAccessException
 import com.belosh.jdbctemplate.rowmapper.TestVOMapper
 import org.h2.jdbcx.JdbcDataSource
 import org.junit.Assert
@@ -207,14 +209,14 @@ class NamedParameterJDBCTemplateITest {
         // Delete all data in table
         namedParameterTemplate.update(DELETE_ALL)
 
-        expectedEx.expect(EntityBuilderException.class)
+        expectedEx.expect(EmptyResultDataAccessException.class)
         expectedEx.expectMessage("Empty result set")
         namedParameterTemplate.query(SELECT_ALL, testVOMapper)
     }
 
     @Test
     void testForMultipleRowsInResultSet() {
-        expectedEx.expect(EntityBuilderException.class)
+        expectedEx.expect(IncorrectResultSizeDataAccessException.class)
         expectedEx.expectMessage("More then one row in result set")
         namedParameterTemplate.queryForObject(SELECT_ALL, testVOMapper)
     }

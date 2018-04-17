@@ -1,6 +1,8 @@
 package com.belosh.jdbctemplate.template;
 
+import com.belosh.jdbctemplate.exception.EmptyResultDataAccessException;
 import com.belosh.jdbctemplate.exception.EntityBuilderException;
+import com.belosh.jdbctemplate.exception.IncorrectResultSizeDataAccessException;
 import com.belosh.jdbctemplate.rowmapper.RowMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +25,7 @@ public class EntityBuilder {
 
             if (result.size() == 0) {
                 logger.error("Empty result set");
-                throw new EntityBuilderException("Empty result set");
+                throw new EmptyResultDataAccessException("Empty result set");
             }
 
             return result;
@@ -39,14 +41,14 @@ public class EntityBuilder {
                 int rows = resultSet.getRow();
                 if (rows > 1) {
                     logger.error("More then one row in result set");
-                    throw new EntityBuilderException("More then one row in result set");
+                    throw new IncorrectResultSizeDataAccessException("More then one row in result set");
                 }
 
                 resultSet.first();
                 return rowMapper.mapRow(resultSet);
             } else {
                 logger.error("Empty result set");
-                throw new EntityBuilderException("Empty result set");
+                throw new EmptyResultDataAccessException("Empty result set");
             }
         } catch (SQLException e) {
             logger.error("Failed to process result set");
