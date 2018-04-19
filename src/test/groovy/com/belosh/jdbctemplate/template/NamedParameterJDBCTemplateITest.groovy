@@ -167,7 +167,7 @@ class NamedParameterJDBCTemplateITest {
         assertEquals(1, deletedRows)
 
         // Check if exception thrown
-        expectedEx.expect(EntityBuilderException.class)
+        expectedEx.expect(EmptyResultDataAccessException.class)
         expectedEx.expectMessage("Empty result set")
         namedParameterTemplate.queryForObject(SELECT_ROW_BINDVAR_QUERY, testVOMapper, selectParamMap)
     }
@@ -199,20 +199,11 @@ class NamedParameterJDBCTemplateITest {
         // Delete all data in table
         namedParameterTemplate.update(DELETE_ALL)
 
-        expectedEx.expect(EntityBuilderException.class)
+        expectedEx.expect(EmptyResultDataAccessException.class)
         expectedEx.expectMessage("Empty result set")
         namedParameterTemplate.queryForObject(SELECT_ROW_PLACEHOLDER_QUERY, testVOMapper, true)
     }
 
-    @Test
-    void testForEmptyResultSetForList() {
-        // Delete all data in table
-        namedParameterTemplate.update(DELETE_ALL)
-
-        expectedEx.expect(EmptyResultDataAccessException.class)
-        expectedEx.expectMessage("Empty result set")
-        namedParameterTemplate.query(SELECT_ALL, testVOMapper)
-    }
 
     @Test
     void testForMultipleRowsInResultSet() {

@@ -23,11 +23,6 @@ public class EntityBuilder {
                 result.add(rowMapper.mapRow(resultSet));
             }
 
-            if (result.size() == 0) {
-                logger.error("Empty result set");
-                throw new EmptyResultDataAccessException("Empty result set");
-            }
-
             return result;
         } catch (SQLException e) {
             logger.error("Failed to process result set");
@@ -37,15 +32,14 @@ public class EntityBuilder {
 
     static <T> T mapEntity(ResultSet resultSet, RowMapper<T> rowMapper) {
         try {
-            if (resultSet.last()) {
-                int rows = resultSet.getRow();
-                if (rows > 1) {
+            if (resultSet.next()) {
+                T entity = rowMapper.mapRow(resultSet);
+                if (resultSet.next()) {
                     logger.error("More then one row in result set");
                     throw new IncorrectResultSizeDataAccessException("More then one row in result set");
                 }
 
-                resultSet.first();
-                return rowMapper.mapRow(resultSet);
+                return entity;
             } else {
                 logger.error("Empty result set");
                 throw new EmptyResultDataAccessException("Empty result set");

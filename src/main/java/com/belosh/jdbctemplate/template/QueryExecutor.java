@@ -69,7 +69,7 @@ public class QueryExecutor {
 
     private PreparedStatement getPreparedStatement(Connection connection, String query, List<?> param) {
         try {
-            PreparedStatement statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            PreparedStatement statement = connection.prepareStatement(query, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
 
             int index = 1;
 
